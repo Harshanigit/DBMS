@@ -16,12 +16,12 @@ const sendQuery = async (sql, doCommit, ...params) => {
         throw err
     } finally {
         if (conn)
-            conn.end()
+            conn.release()
         return(result)
     }
 }
 
-const findOneUser = async (username) => sendQuery(`SELECT * FROM users WHERE username = ?`, true, username);
+const findOneUser = async (username) => sendQuery(`SELECT * FROM users WHERE username = ?`, false, username,password);
 
 const getAllData = async () => 
     sendQuery(`SELECT * FROM data`);
