@@ -21,7 +21,7 @@ const sendQuery = async (sql, doCommit, ...params) => {
     }
 }
 
-const findOneUser = async (username) => sendQuery(`SELECT * FROM users WHERE username = ?`, false, username,password);
+const findOneUser = async (username) => sendQuery(`SELECT * FROM users WHERE username = ?`, false, username);
 
 const getAllData = async () => 
     sendQuery(`SELECT * FROM data`);
@@ -38,6 +38,13 @@ const addOneUser = async (username, password) =>
 const addData = ({id, Firstname, Surname, userid}) =>
     sendQuery(`INSERT INTO data (id, Firstname, Surname, userid) VALUES (?, ?, ?, ?)`, true, id, Firstname, Surname, userid);
 
+// Function to call the GenerateRows stored procedure
+const addRandomUsers = async (maxUsers) => {
+    const query = 'CALL addRandomUsers(?)'; // Call the stored procedure with the maxUsers parameter
+    return sendQuery(query, false, maxUsers);
+};
+
+
 /*
 const getUserByName = (username) => 
     sendQuery(`SELECT * FROM users WHERE username = ?`, false, username);
@@ -46,6 +53,7 @@ const deleteData = (id, userid) =>
     sendQuery(`DELETE FROM data WHERE id = ? AND userid = ?`, true, id, userid);
 */
 export {
+    
     addOneUser,
     getAllUsers,
     findOneUser,
@@ -53,6 +61,9 @@ export {
     getDataById,
     addData,
     logonUsers,
+    addRandomUsers //
 //    getUserByName,
 //    deleteData,
 }
+
+

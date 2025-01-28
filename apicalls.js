@@ -7,6 +7,7 @@ import index from './api/index.js';
 import data from './api/data.js';
 import login from './api/login.js';
 
+
 const swaggerDocument = YAML.load('./openapi/api.yaml');
 const app = express();
 app.use(express.json());
